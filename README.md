@@ -25,6 +25,7 @@ location /user-app {
     }
 ```
 Every request made to the nginx server at `/user-app/*` will be sent to `http://users-service:3000/user-app/*`. For example: `/user-app/user  -----> http://users-service:3000/user-app/users`   
+We could use `proxy_pass http://users-service:3000` directly, but nginx will try to resolve the hostname to an ip address at start time (it might not be able to do so, depending on how fast Docker started the other container), if it fails to do so it will not start at all. By setting the hostname to a variable and then pass that variable to `proxy_pass` nginx will not fail if the hostname is not resolved since it knows it might change.
 There is one more thing we need to add, a DNS resolver for the backend-services, in this case we will use Docker DNS resolver
 ```
 resolver 127.0.0.11 valid=30s;
