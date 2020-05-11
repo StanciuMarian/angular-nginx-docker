@@ -113,5 +113,7 @@ services:
 
 4. We will also add a `.dockerignore` file under `angular-demo`. We can add here any files that we don't want to use in the build process, like `node_modules` for example. This will speed up our build process.  
 5. Run `docker-compese up --build` in the root folder. 
+6. You should be able to access the application from `localhost:4200` and see a list of 5 users in a table. 
+![](https://i.ibb.co/wc5jK4x/angular-nginx.png)
 
 
