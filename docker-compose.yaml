@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  users-ui:
+    build: 
+      context: angular-demo
+    ports:
+    - 4200:80
+    depends_on: 
+      - users-service
+  users-service:
+    build: 
+      context: server-demo
+    ports:
+    - 3000:3000
