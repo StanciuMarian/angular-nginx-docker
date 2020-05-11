@@ -68,12 +68,13 @@ server {
 2.1.1 Start with `FROM node:alpine AS builder`. We will use a node image, as an intermediate image, in which we will first build the application  
 2.1.2 Set the working directory `WORKDIR /app`  
 2.1.3 Copy the package.json and package.lock.json inside the image: `COPY package*.json ./`  
-2.1.4 Install the dependencies `npm install`. We do not copy the source code of our application yet because we want Docker to cache everything until this layer and only rerun this part if we modify the package.json  
+2.1.4 Install the dependencies `npm install`. `RUN npm install`  
+We do not copy the source code of our application yet because we want Docker to cache everything until this layer and only rerun this part if we modify the package.json  
 2.1.5 Next we copy the source code `COPY . ./`  
 2.1.6 The last step for this intermediate image is to build the application `RUN $(npm bin)/ng build`  
 2.2.1 The next image we will use is nginx `FROM nginx`  
-2.2.2 We copy the build result from the builder image. `/usr/share/nginx/html`  
-2.2.3 We copy the nginx-conf into the container as well `/etc/nginx/conf.d/default.conf`  
+2.2.2 We copy the build result from the builder image. `COPY --from=builder /app/dist/demo/ /usr/share/nginx/html` 
+2.2.3 We copy the nginx-conf into the container as well `COPY nginx-conf/nginx.conf /etc/nginx/conf.d/default.conf`  
 
 In the end it should look something like this:
 ```
