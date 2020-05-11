@@ -13,14 +13,13 @@ export class AppComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-
+    this.getAllBooks();
   }
 
   getAllBooks() {
-    this.http.get<User[]> (`http://users-service/users`, {})
+    this.http.get<User[]> (`/user-app/users`, {})
         .subscribe(users => this.users = users)
   }
-
 }
 
 class User {

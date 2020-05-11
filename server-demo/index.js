@@ -3,7 +3,7 @@ const app = express()
 
 app.use(express.json())
 
-app.get('/users', (req, res) => {
+app.get('/user-app/users', (req, res) => {
     res.json([
         {firstName: "FirstName1", lastName: "LastName1", email: "user1@email.com"},
         {firstName: "FirstName2", lastName: "LastName2", email: "user2@email.com"},
